@@ -1,0 +1,6 @@
+﻿.vs/
+packages/
+!packages.config
+bin/
+obj/
+MS-Toys.csproj.user
