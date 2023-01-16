@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace StoreAdministration
 {
-    internal class StoreDatabaseContext : DbContext
+    internal class StoreDataContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
@@ -17,7 +17,7 @@ namespace StoreAdministration
     {
         public static void InsertProduct(Product product)
         {
-            using (var context = new StoreDatabaseContext())
+            using (var context = new StoreDataContext())
             {
                 context.Products.Add(product);
                 context.SaveChanges();
@@ -26,7 +26,7 @@ namespace StoreAdministration
 
         public static void SellProducts(long productId, int quantity)
         {
-            using (var context = new StoreDatabaseContext())
+            using (var context = new StoreDataContext())
             {
                 var product = context.Products.Find(productId);
 
@@ -48,7 +48,7 @@ namespace StoreAdministration
 
         public static List<Product> SearchProduct(string name)
         {
-            using (var context = new StoreDatabaseContext())
+            using (var context = new StoreDataContext())
             {
                 var query = (
                     from product in context.Products
@@ -62,7 +62,7 @@ namespace StoreAdministration
 
         public static void AddProductQuantity(long id, int quantity)
         {
-            using (var context = new StoreDatabaseContext())
+            using (var context = new StoreDataContext())
             {
                 var productSearched = (
                     from product in context.Products
@@ -78,7 +78,7 @@ namespace StoreAdministration
 
         public static string GetUserPassword(string username)
         {
-            using (var context = new StoreDatabaseContext())
+            using (var context = new StoreDataContext())
             {
                 var userSearched = (
                     from user in context.Users
@@ -90,7 +90,7 @@ namespace StoreAdministration
             }
         }
 
-        public static void SignUserUp(StoreDatabaseContext context, string username, string encryptedPassword, string firstName, string lastName)
+        public static void SignUserUp(StoreDataContext context, string username, string encryptedPassword, string firstName, string lastName)
         {
             User user = new User
             {
@@ -106,7 +106,7 @@ namespace StoreAdministration
 
         public static void DeleteUser(string username)
         {
-            using (var context = new StoreDatabaseContext())
+            using (var context = new StoreDataContext())
             {
                 var userSearched = (
                     from user in context.Users
@@ -121,7 +121,7 @@ namespace StoreAdministration
 
         public static List<Transaction> GetTransactions()
         {
-            using (var context = new StoreDatabaseContext())
+            using (var context = new StoreDataContext())
             {
                 var query = (
                     from transaction in context.Transactions
@@ -132,7 +132,7 @@ namespace StoreAdministration
             }
         }
 
-        private static void MakeTransaction(StoreDatabaseContext context, string name, int quantity)
+        private static void MakeTransaction(StoreDataContext context, string name, int quantity)
         {
             var transaction = new Transaction
             {

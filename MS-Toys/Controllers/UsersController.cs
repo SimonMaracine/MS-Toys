@@ -13,7 +13,7 @@ namespace MS_Toys.Controllers
 {
     public class UsersController : Controller
     {
-        private StoreDatabaseContext db = new StoreDatabaseContext();
+        private StoreDataContext db = new StoreDataContext();
 
         // GET: Users
         public ActionResult Index()
