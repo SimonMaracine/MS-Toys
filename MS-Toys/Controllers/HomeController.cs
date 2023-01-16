@@ -22,7 +22,7 @@ namespace MS_Toys.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "If you encounter any issues, we can be contacted through our e-mail adresses : mstoys@bussines.com";
 
             return View();
         }
