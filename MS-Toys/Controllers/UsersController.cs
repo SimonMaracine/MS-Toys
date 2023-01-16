@@ -51,8 +51,10 @@ namespace MS_Toys.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
-                db.SaveChanges();
+                //db.Users.Add(user);
+                //db.SaveChanges();
+
+                Data.SignUserUp(db, user.Username, user.EncryptedPassword, user.FirstName, user.LastName);
                 return RedirectToAction("Index");
             }
 
