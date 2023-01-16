@@ -13,7 +13,7 @@ namespace StoreAdministration
         public DbSet<Transaction> Transactions { get; set; }
     }
 
-    internal class Database
+    internal class Data
     {
         public static void InsertProduct(Product product)
         {
@@ -90,21 +90,18 @@ namespace StoreAdministration
             }
         }
 
-        public static void SignUserUp(string username, string encryptedPassword, string firstName, string lastName)
+        public static void SignUserUp(StoreDatabaseContext context, string username, string encryptedPassword, string firstName, string lastName)
         {
-            using (var context = new StoreDatabaseContext())
+            User user = new User
             {
-                User user = new User
-                {
-                    FirstName = firstName,
-                    LastName = lastName,
-                    Username = username,
-                    EncryptedPassword = encryptedPassword  // FIXME this needs to be encrypted
-                };
+                FirstName = firstName,
+                LastName = lastName,
+                Username = username,
+                EncryptedPassword = encryptedPassword  // FIXME this needs to be encrypted
+            };
 
-                context.Users.Add(user);
-                context.SaveChanges();
-            }
+            context.Users.Add(user);
+            context.SaveChanges();
         }
 
         public static void DeleteUser(string username)
