@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -51,8 +52,15 @@ namespace MS_Toys.Controllers
         {
             if (ModelState.IsValid)
             {
-                //db.Users.Add(user);
-                //db.SaveChanges();
+                var users = Data.GetAllUsernames(db);
+
+                foreach(var user_ in users)
+                {
+                    if(user_.Username == user.Username)
+                    {
+                        return View(user);
+                    }
+                }
 
                 Data.SignUserUp(db, user.Username, user.EncryptedPassword, user.FirstName, user.LastName);
                 return RedirectToAction("Index");

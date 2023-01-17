@@ -103,6 +103,11 @@ namespace StoreAdministration
             context.Users.Add(user);
             context.SaveChanges();
         }
+        
+        public static List<User> GetAllUsernames(StoreDataContext context)
+        {
+            return context.Users.ToList();
+        }
 
         public static void DeleteUser(string username)
         {
