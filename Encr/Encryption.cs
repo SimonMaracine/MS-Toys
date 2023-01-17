@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Encr
 {
-    public class Encr
+    public class Encryption
     {
-        public byte[] EncryptString(string plainString, string keyPath, string ivPath)
+        public static byte[] EncryptString(string plainString, string keyPath, string ivPath)
         {
             byte[] result;
 
@@ -22,11 +22,12 @@ namespace Encr
                     var writer = new StreamWriter(stream);
 
                     writer.Write(plainString);
-                    result = output.ToArray();
 
                     writer.Close();
                     stream.Close();
                     output.Close();
+
+                    result = output.ToArray();
                 }
 
                 WriteItemToFile(keyPath, aes.Key);
@@ -36,7 +37,7 @@ namespace Encr
             return result;
         }
 
-        public string DecryptString(byte[] encryptedString, string keyPath, string ivPath)
+        public static string DecryptString(byte[] encryptedString, string keyPath, string ivPath)
         {
             byte[] key = ReadItemFromFile(keyPath);
             byte[] iv = ReadItemFromFile(ivPath);
@@ -51,17 +52,18 @@ namespace Encr
                     var stream = new CryptoStream(output, decrypter, CryptoStreamMode.Write);
 
                     stream.Write(encryptedString, 0, encryptedString.Length);
-                    result = output.ToArray();
 
                     stream.Close();
                     output.Close();
+
+                    result = output.ToArray();
                 }
             }
 
             return Encoding.UTF8.GetString(result);
         }
 
-        private byte[] ReadItemFromFile(string filePath)
+        private static byte[] ReadItemFromFile(string filePath)
         {
             byte[] buffer;
 
@@ -75,7 +77,7 @@ namespace Encr
             return buffer;
         }
 
-        private void WriteItemToFile(string filePath, byte[] buffer)
+        private static void WriteItemToFile(string filePath, byte[] buffer)
         {
             using (var file = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
