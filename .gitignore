@@ -4,4 +4,6 @@ packages/
 bin/
 obj/
 MS-Toys.csproj.user
-App_Data/
+MS-Toys/App_Data/
+*.mdf
+*.ldf

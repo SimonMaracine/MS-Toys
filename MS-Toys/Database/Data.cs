@@ -15,13 +15,10 @@ namespace StoreAdministration
 
     internal class Data
     {
-        public static void InsertProduct(Product product)
+        public static void InsertProduct(StoreDataContext context, Product product)
         {
-            using (var context = new StoreDataContext())
-            {
-                context.Products.Add(product);
-                context.SaveChanges();
-            }
+            context.Products.Add(product);
+            context.SaveChanges();
         }
 
         public static void SellProducts(long productId, int quantity)
@@ -102,6 +99,11 @@ namespace StoreAdministration
 
             context.Users.Add(user);
             context.SaveChanges();
+        }
+        
+        public static List<User> GetAllUsernames(StoreDataContext context)
+        {
+            return context.Users.ToList();
         }
 
         public static void DeleteUser(string username)
