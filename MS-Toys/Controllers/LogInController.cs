@@ -15,6 +15,7 @@ namespace MS_Toys.Controllers
 
         public ActionResult Create()
         {
+            ViewData["userName"] = GetCookie.Get(Request, "userName");
             return View();
         }
 
@@ -33,6 +34,8 @@ namespace MS_Toys.Controllers
             HttpCookie userNameCookie = new HttpCookie("userName");
             userNameCookie["Username"] = user.Username;
             Response.Cookies.Add(userNameCookie);
+
+            ViewData["userName"] = user.Username;
 
             return View(user);
         } 

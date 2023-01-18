@@ -18,12 +18,15 @@ namespace MS_Toys.Controllers
         // GET: Products
         public ActionResult Index()
         {
+            ViewData["userName"] = GetCookie.Get(Request, "userName");
             return View(db.Products.ToList());
         }
 
         // GET: Products/Details/5
         public ActionResult Details(long? id)
         {
+            ViewData["userName"] = GetCookie.Get(Request, "userName");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +42,7 @@ namespace MS_Toys.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
+            ViewData["userName"] = GetCookie.Get(Request, "userName");
             return View();
         }
 
@@ -49,6 +53,8 @@ namespace MS_Toys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Description,Quantity")] Product product)
         {
+            ViewData["userName"] = GetCookie.Get(Request, "userName");
+
             if (ModelState.IsValid)
             {
                 Data.InsertProduct(db, product);
@@ -61,6 +67,8 @@ namespace MS_Toys.Controllers
         // GET: Products/Edit/5
         public ActionResult Edit(long? id)
         {
+            ViewData["userName"] = GetCookie.Get(Request, "userName");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,6 +88,8 @@ namespace MS_Toys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,Quantity")] Product product)
         {
+            ViewData["userName"] = GetCookie.Get(Request, "userName");
+
             if (ModelState.IsValid)
             {
                 db.Entry(product).State = EntityState.Modified;
@@ -92,6 +102,8 @@ namespace MS_Toys.Controllers
         // GET: Products/Delete/5
         public ActionResult Delete(long? id)
         {
+            ViewData["userName"] = GetCookie.Get(Request, "userName");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -109,6 +121,8 @@ namespace MS_Toys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
+            ViewData["userName"] = GetCookie.Get(Request, "userName");
+
             Product product = db.Products.Find(id);
             db.Products.Remove(product);
             db.SaveChanges();

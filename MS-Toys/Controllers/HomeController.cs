@@ -10,11 +10,14 @@ namespace MS_Toys.Controllers
     {
         public ActionResult Index()
         {
+            ViewData["userName"] = GetCookie.Get(Request, "userName");
             return View();
         }
 
         public ActionResult About()
         {
+            ViewData["userName"] = GetCookie.Get(Request, "userName");
+
             ViewBag.Message = "Your application description page.";
 
             return View();
@@ -22,6 +25,8 @@ namespace MS_Toys.Controllers
 
         public ActionResult Contact()
         {
+            ViewData["userName"] = GetCookie.Get(Request, "userName");
+
             ViewBag.Message = "If you encounter any issues, we can be contacted through our e-mail adresses : mstoys@bussines.com";
 
             return View();
