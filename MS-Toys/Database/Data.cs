@@ -100,6 +100,20 @@ namespace StoreAdministration
             context.Users.Add(user);
             context.SaveChanges();
         }
+
+        public static User GetUser(StoreDataContext context, string username)
+        {
+            var users = (from user in context.Users
+                        where user.Username == username
+                        select user).ToArray();
+
+            if(users.Length == 0)
+            {
+                return null;
+            }
+
+            return users[0];
+        }
         
         public static List<User> GetAllUsernames(StoreDataContext context)
         {
