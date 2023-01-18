@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace MS_Toys.Models
 {
@@ -18,6 +15,9 @@ namespace MS_Toys.Models
 
         [MaxLength(500)]
         public string Description { get; set; }
+
+        [Required]
+        public Decimal Price { get; set; }
 
         [Required]
         public int Quantity { get; set; }
