@@ -22,22 +22,33 @@ namespace MS_Toys.Controllers
             return View(db.Products.ToList());
         }
 
-        // GET: Products/Details/5
-        public ActionResult Details(long? id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Purchase([Bind(Include = "Quantity")] Product product)
         {
             ViewData["userName"] = GetCookie.Get(Request, "userName");
 
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Data.SellProducts(db, ViewData["userName"].ToString(), product.Id, 1);
             }
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(product);
+            catch (ArgumentOutOfRangeException) { }
+
+            return View(db.Products.ToList());
         }
+
+        /*public ActionResult Purchase(long? id)
+        {
+            ViewData["userName"] = GetCookie.Get(Request, "userName");
+
+            try 
+            {
+                Data.SellProducts(db, ViewData["userName"].ToString(), (long)id, 1);
+            }
+            catch (ArgumentOutOfRangeException) {}
+
+            return View(db.Products.ToList());
+        }*/
 
         // GET: Products/Create
         public ActionResult Create()

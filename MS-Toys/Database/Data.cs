@@ -21,26 +21,19 @@ namespace StoreAdministration
             context.SaveChanges();
         }
 
-        public static void SellProducts(long productId, int quantity)
+        public static void SellProducts(StoreDataContext context, string username, long productId, int quantity)
         {
-            using (var context = new StoreDataContext())
+            var product = context.Products.Find(productId);
+
+            product.Quantity -= quantity;
+
+            if (product.Quantity < 0)
             {
-                var product = context.Products.Find(productId);
-
-                product.Quantity -= quantity;
-
-                if (product.Quantity < 0)
-                {
-                    throw new ArgumentOutOfRangeException("Quantity");  // FIXME bad choice; should be a custom exception :P
-                }
-                else if (product.Quantity == 0)
-                {
-                    context.Products.Remove(product);
-                }
-
-                MakeTransaction(context, product.Name, quantity);
-                context.SaveChanges();
+                throw new ArgumentOutOfRangeException("Quantity not enough !");  // FIXME bad choice; should be a custom exception :P
             }
+
+            MakeTransaction(context, username, product.Name, quantity);
+            context.SaveChanges();
         }
 
         public static List<Product> SearchProduct(string name)
@@ -148,10 +141,11 @@ namespace StoreAdministration
             }
         }
 
-        private static void MakeTransaction(StoreDataContext context, string name, int quantity)
+        private static void MakeTransaction(StoreDataContext context, string username, string name, int quantity)
         {
             var transaction = new Transaction
             {
+                UserName = username,
                 Name = name,
                 Quantity = quantity
             };
