@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -13,6 +14,11 @@ namespace MS_Toys.Controllers
 {
     public class TransactionsController : Controller
     {
+        public TransactionsController()
+        {
+            Log.Initialize();
+        }
+
         private StoreDataContext db = new StoreDataContext();
 
         // GET: Transactions
@@ -31,7 +37,9 @@ namespace MS_Toys.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Transaction transaction = db.Transactions.Find(id);
+
             if (transaction == null)
             {
                 return HttpNotFound();
@@ -49,6 +57,8 @@ namespace MS_Toys.Controllers
             Transaction transaction = db.Transactions.Find(id);
             db.Transactions.Remove(transaction);
             db.SaveChanges();
+            Trace.WriteLine("Transaction '" + transaction.Id + "' was deleted");
+
             return RedirectToAction("Index");
         }
 

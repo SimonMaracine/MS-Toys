@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -14,6 +15,11 @@ namespace MS_Toys.Controllers
 {
     public class UsersController : Controller
     {
+        public UsersController()
+        {
+            Log.Initialize();
+        }
+
         private StoreDataContext db = new StoreDataContext();
 
         // GET: Users
@@ -32,7 +38,9 @@ namespace MS_Toys.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             User user = db.Users.Find(id);
+
             if (user == null)
             {
                 return HttpNotFound();
@@ -69,6 +77,7 @@ namespace MS_Toys.Controllers
                 }
 
                 Data.SignUserUp(db, user.Username, user.EncryptedPassword, user.FirstName, user.LastName);
+                Trace.WriteLine("User '" + user.Username + "' has signed up");
 
                 return RedirectToAction("Index");
             }
@@ -106,6 +115,8 @@ namespace MS_Toys.Controllers
             {
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
+                Trace.WriteLine("User '" + user.Username + "' was edited");
+
                 return RedirectToAction("Index");
             }
             return View(user);
@@ -138,6 +149,8 @@ namespace MS_Toys.Controllers
             User user = db.Users.Find(id);
             db.Users.Remove(user);
             db.SaveChanges();
+            Trace.WriteLine("User '" + user.Username + "' was deleted");
+
             return RedirectToAction("Index");
         }
 
