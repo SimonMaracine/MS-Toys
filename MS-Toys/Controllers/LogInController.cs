@@ -18,7 +18,7 @@ namespace MS_Toys.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         
-        public ActionResult Create([Bind(Include = "Username, EncryptedPassword")] User user)
+        public ActionResult Create([Bind(Include = "Username,EncryptedPassword")] User user)
         {
             var getUser = Data.GetUser(db, user.Username);
 
@@ -33,7 +33,7 @@ namespace MS_Toys.Controllers
 
             ViewData["username"] = user.Username;
 
-            return View(user);
+            return Redirect("/Home/Index");
         } 
     }
 }

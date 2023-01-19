@@ -34,6 +34,11 @@ namespace MS_Toys.Controllers
         {
             ViewData["username"] = GetCookie.Get(Request, "username");
 
+            if (!CheckUserAuthenticated(ViewData["username"]))  // TODO log this
+            {
+                return RedirectToAction("Index");
+            }
+
             try
             {
                 Data.SellProducts(db, ViewData["username"].ToString(), product.Id, 1);
@@ -145,6 +150,18 @@ namespace MS_Toys.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private bool CheckUserAuthenticated(object username)
+        {
+            if (username.ToString().Length == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

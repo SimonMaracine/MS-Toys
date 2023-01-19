@@ -23,23 +23,6 @@ namespace MS_Toys.Controllers
             return View(db.Users.ToList());
         }
 
-        // GET: Users/Details/5
-        public ActionResult Details(string id)
-        {
-            ViewData["username"] = GetCookie.Get(Request, "username");
-
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
         // GET: Users/Create
         public ActionResult Create()
         {
