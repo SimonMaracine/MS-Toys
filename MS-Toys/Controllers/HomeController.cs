@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace MS_Toys.Controllers
 {
@@ -18,7 +14,7 @@ namespace MS_Toys.Controllers
         {
             ViewData["userName"] = GetCookie.Get(Request, "userName");
 
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Our store is the best. Period.";
 
             return View();
         }
@@ -27,7 +23,7 @@ namespace MS_Toys.Controllers
         {
             ViewData["userName"] = GetCookie.Get(Request, "userName");
 
-            ViewBag.Message = "If you encounter any issues, we can be contacted through our e-mail adresses : mstoys@bussines.com";
+            ViewBag.Message = "If you encounter any issues, contact us through our e-mail address: ms_toys_marketing@gmail.com";
 
             return View();
         }
