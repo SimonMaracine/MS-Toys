@@ -51,7 +51,7 @@ namespace MS_Toys.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Quantity")] Product product)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Quantity")] Product product)
         {
             ViewData["userName"] = GetCookie.Get(Request, "userName");
 
