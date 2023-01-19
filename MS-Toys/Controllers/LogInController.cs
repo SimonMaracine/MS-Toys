@@ -38,12 +38,9 @@ namespace MS_Toys.Controllers
                 return View(user);
             }
 
-            HttpCookie usernameCookie = new HttpCookie("username");
-            usernameCookie["username"] = user.Username;
-            Response.Cookies.Add(usernameCookie);
+            GetCookie.UsernameCookie(Response, user);
 
             ViewData["username"] = user.Username;
-
             Trace.WriteLine("User '" + user.Username + "' has signed up");
 
             return Redirect("/Home/Index");

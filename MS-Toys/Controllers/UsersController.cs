@@ -73,7 +73,9 @@ namespace MS_Toys.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             User user = db.Users.Find(id);
+
             if (user == null)
             {
                 return HttpNotFound();
@@ -96,6 +98,7 @@ namespace MS_Toys.Controllers
 
                 return RedirectToAction("Index");
             }
+
             return View(user);
         }
 
@@ -108,11 +111,14 @@ namespace MS_Toys.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             User user = db.Users.Find(id);
+
             if (user == null)
             {
                 return HttpNotFound();
             }
+
             return View(user);
         }
 
