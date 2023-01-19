@@ -20,21 +20,21 @@ namespace MS_Toys.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
             return View(db.Products.ToList());
         }
 
         // GET
         public ActionResult Purchase()
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
             return View(new Product());
         }
 
         [HttpPost]
         public ActionResult Purchase([Bind(Include = "Id,Quantity")] Product product)
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
 
             if (!CheckUserAuthenticated(ViewData["username"]))  // TODO log this
             {
@@ -62,7 +62,7 @@ namespace MS_Toys.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
             return View(new Product());
         }
 
@@ -73,7 +73,7 @@ namespace MS_Toys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Quantity")] Product product)
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
 
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace MS_Toys.Controllers
         // GET: Products/Edit/5
         public ActionResult Edit(long? id)
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
 
             if (id == null)
             {
@@ -112,7 +112,7 @@ namespace MS_Toys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,Quantity")] Product product)
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
 
             if (ModelState.IsValid)
             {
@@ -128,7 +128,7 @@ namespace MS_Toys.Controllers
         // GET: Products/Delete/5
         public ActionResult Delete(long? id)
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
 
             if (id == null)
             {
@@ -149,7 +149,7 @@ namespace MS_Toys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
 
             Product product = db.Products.Find(id);
             db.Products.Remove(product);

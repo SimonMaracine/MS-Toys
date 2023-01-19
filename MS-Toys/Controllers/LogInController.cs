@@ -17,7 +17,7 @@ namespace MS_Toys.Controllers
 
         public ActionResult Create()
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
             return View(new User());
         }
 
@@ -30,7 +30,7 @@ namespace MS_Toys.Controllers
             if (getUser == null) 
             {
                 Trace.WriteLine("User '" + user.Username + "' was not found");
-                ViewData["username"] = GetCookie.Get(Request, "username");
+                ViewData["username"] = Cookie.Get(Request, "username");
 
                 return View(user);
             }
@@ -44,6 +44,22 @@ namespace MS_Toys.Controllers
             Trace.WriteLine("User '" + user.Username + "' has signed up");
 
             return Redirect("/Home/Index");
-        } 
+        }
+
+        public ActionResult LogOut()
+        {
+            /*if (ViewData["username"] == null || ViewData["username"].ToString().Length == 0)
+            {
+                return View(new User());
+            }*/
+
+            // Cookie.Delete(Request, "username");
+            // Request.Cookies.Clear();
+            // Cookie.Clear(Response, Request, "username");
+
+            // ViewData["username"] = Cookie.Get(Request, "username");
+
+            return Redirect("/Home/Index");
+        }
     }
 }

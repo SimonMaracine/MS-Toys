@@ -24,14 +24,14 @@ namespace MS_Toys.Controllers
         // GET: Transactions
         public ActionResult Index()
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
             return View(db.Transactions.ToList());
         }
 
         // GET: Transactions/Delete/5
         public ActionResult Delete(long? id)
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
 
             if (id == null)
             {
@@ -52,7 +52,7 @@ namespace MS_Toys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
 
             Transaction transaction = db.Transactions.Find(id);
             db.Transactions.Remove(transaction);

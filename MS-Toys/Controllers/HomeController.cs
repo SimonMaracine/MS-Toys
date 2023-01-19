@@ -13,13 +13,13 @@ namespace MS_Toys.Controllers
 
         public ActionResult Index()
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
             return View();
         }
 
         public ActionResult About()
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
 
             ViewBag.Message = "Our store is the best. Period.";
 
@@ -28,7 +28,7 @@ namespace MS_Toys.Controllers
 
         public ActionResult Contact()
         {
-            ViewData["username"] = GetCookie.Get(Request, "username");
+            ViewData["username"] = Cookie.Get(Request, "username");
 
             ViewBag.Message = "If you encounter any issues, contact us through our e-mail address: ms_toys_marketing@gmail.com";
 
