@@ -10,7 +10,7 @@ namespace MS_Toys.Models
 
         [Required]
         [MaxLength(30)]
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         [Required]
         [MaxLength(30)]

@@ -131,6 +131,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Database\Data.cs" />
     <Compile Include="Global.asax.cs">
@@ -188,6 +189,8 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\LogIn\Create.cshtml" />
     <Content Include="Views\Products\Purchase.cshtml" />
+    <Content Include="Views\Transactions\Delete.cshtml" />
+    <Content Include="Views\Transactions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

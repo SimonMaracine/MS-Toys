@@ -160,7 +160,7 @@ namespace StoreAdministration
         {
             var transaction = new Transaction
             {
-                UserName = username,
+                Username = username,
                 Name = name,
                 Quantity = quantity
             };
