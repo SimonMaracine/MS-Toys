@@ -55,6 +55,7 @@ namespace MS_Toys.Controllers
             ViewData["username"] = Cookie.Get(Request, "username");
 
             Transaction transaction = db.Transactions.Find(id);
+
             db.Transactions.Remove(transaction);
             db.SaveChanges();
             Trace.WriteLine("Transaction '" + transaction.Id + "' was deleted");

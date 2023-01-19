@@ -36,8 +36,9 @@ namespace MS_Toys.Controllers
         {
             ViewData["username"] = Cookie.Get(Request, "username");
 
-            if (!CheckUserAuthenticated(ViewData["username"]))  // TODO log this
+            if (!CheckUserAuthenticated(ViewData["username"]))
             {
+                Trace.WriteLine("User '" + ViewData["username"].ToString() + "' was not found");
                 return RedirectToAction("Index");
             }
 
@@ -47,7 +48,7 @@ namespace MS_Toys.Controllers
                 Trace.WriteLine("User '" + ViewData["username"].ToString() + "' has purchased "
                     + product.Quantity + " units of Product '" + product.Id + "'");
             }
-            catch (ProductException)  // TODO log here
+            catch (ProductException)
             {
                 Trace.WriteLine("Product '" + product.Id + "' was not found");
             }
@@ -67,8 +68,6 @@ namespace MS_Toys.Controllers
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Quantity")] Product product)
@@ -106,8 +105,6 @@ namespace MS_Toys.Controllers
         }
 
         // POST: Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,Quantity")] Product product)
