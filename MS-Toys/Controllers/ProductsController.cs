@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using MS_Toys.Models;
 using StoreAdministration;
@@ -13,6 +10,11 @@ namespace MS_Toys.Controllers
 {
     public class ProductsController : Controller
     {
+        public ProductsController()
+        {
+            Log.Initialize();
+        }
+
         private StoreDataContext db = new StoreDataContext();
 
         // GET: Products
@@ -42,14 +44,18 @@ namespace MS_Toys.Controllers
             try
             {
                 Data.SellProducts(db, ViewData["username"].ToString(), product.Id, 1);
+                Trace.WriteLine("User '" + ViewData["username"].ToString() + "' has purchased "
+                    + product.Quantity + " units of Product '" + product.Id + "'");
             }
             catch (ProductException)  // TODO log here
             {
+                Trace.WriteLine("Product '" + product.Id + "' was not found");
             }
             catch (QuantityException)
             {
+                Trace.WriteLine("Product '" + product.Id + "' quantity too low");
             }
-            
+
             return RedirectToAction("Index");
         }
 
@@ -72,6 +78,8 @@ namespace MS_Toys.Controllers
             if (ModelState.IsValid)
             {
                 Data.InsertProduct(db, product);
+                Trace.WriteLine("Product '" + product.Id + "' was added");
+
                 return RedirectToAction("Index");
             }
 
@@ -87,7 +95,9 @@ namespace MS_Toys.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Product product = db.Products.Find(id);
+
             if (product == null)
             {
                 return HttpNotFound();
@@ -108,6 +118,8 @@ namespace MS_Toys.Controllers
             {
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
+                Trace.WriteLine("Product '" + product.Id + "' was modified");
+
                 return RedirectToAction("Index");
             }
             return View(product);
@@ -122,7 +134,9 @@ namespace MS_Toys.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Product product = db.Products.Find(id);
+
             if (product == null)
             {
                 return HttpNotFound();
@@ -140,6 +154,8 @@ namespace MS_Toys.Controllers
             Product product = db.Products.Find(id);
             db.Products.Remove(product);
             db.SaveChanges();
+            Trace.WriteLine("Product '" + product.Id + "' was deleted");
+
             return RedirectToAction("Index");
         }
 

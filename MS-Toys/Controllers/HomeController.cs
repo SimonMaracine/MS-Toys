@@ -1,9 +1,16 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Diagnostics;
+using System.Web.Mvc;
 
 namespace MS_Toys.Controllers
 {
     public class HomeController : Controller
     {
+        public HomeController()
+        {
+            Log.Initialize();
+        }
+
         public ActionResult Index()
         {
             ViewData["username"] = GetCookie.Get(Request, "username");
