@@ -69,6 +69,7 @@ namespace MS_Toys.Controllers
                 }
 
                 Data.SignUserUp(db, user.Username, user.EncryptedPassword, user.FirstName, user.LastName);
+
                 return RedirectToAction("Index");
             }
 

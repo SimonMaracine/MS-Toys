@@ -22,21 +22,30 @@ namespace MS_Toys.Controllers
             return View(db.Products.ToList());
         }
 
-        // GET: Products/Details/5
-        public ActionResult Details(long? id)
+        // GET
+        public ActionResult Purchase()
+        {
+            ViewData["userName"] = GetCookie.Get(Request, "userName");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Purchase([Bind(Include = "Id,Quantity")] Product product)
         {
             ViewData["userName"] = GetCookie.Get(Request, "userName");
 
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Data.SellProducts(db, ViewData["userName"].ToString(), product.Id, 1);
             }
-            Product product = db.Products.Find(id);
-            if (product == null)
+            catch (ProductException)  // TODO log here
             {
-                return HttpNotFound();
             }
-            return View(product);
+            catch (QuantityException)
+            {
+            }
+            
+            return RedirectToAction("Index");
         }
 
         // GET: Products/Create
