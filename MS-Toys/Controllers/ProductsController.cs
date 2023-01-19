@@ -22,9 +22,15 @@ namespace MS_Toys.Controllers
             return View(db.Products.ToList());
         }
 
+        // GET
+        public ActionResult Purchase()
+        {
+            ViewData["userName"] = GetCookie.Get(Request, "userName");
+            return View();
+        }
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Purchase([Bind(Include = "Quantity")] Product product)
+        public ActionResult Purchase([Bind(Include = "Id,Quantity")] Product product)
         {
             ViewData["userName"] = GetCookie.Get(Request, "userName");
 
@@ -32,23 +38,15 @@ namespace MS_Toys.Controllers
             {
                 Data.SellProducts(db, ViewData["userName"].ToString(), product.Id, 1);
             }
-            catch (ArgumentOutOfRangeException) { }
-
-            return View(db.Products.ToList());
-        }
-
-        /*public ActionResult Purchase(long? id)
-        {
-            ViewData["userName"] = GetCookie.Get(Request, "userName");
-
-            try 
+            catch (ProductException)  // TODO log here
             {
-                Data.SellProducts(db, ViewData["userName"].ToString(), (long)id, 1);
             }
-            catch (ArgumentOutOfRangeException) {}
-
-            return View(db.Products.ToList());
-        }*/
+            catch (QuantityException)
+            {
+            }
+            
+            return RedirectToAction("Index");
+        }
 
         // GET: Products/Create
         public ActionResult Create()

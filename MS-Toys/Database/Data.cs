@@ -6,6 +6,16 @@ using System.Linq;
 
 namespace StoreAdministration
 {
+    internal class QuantityException : Exception
+    {
+        public QuantityException(string message) : base(message) { }
+    }
+
+    internal class ProductException : Exception
+    {
+        public ProductException(string message) : base(message) { }
+    }
+
     internal class StoreDataContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
@@ -25,11 +35,16 @@ namespace StoreAdministration
         {
             var product = context.Products.Find(productId);
 
+            if (product == null)
+            {
+                throw new ProductException($"Product `{productId}` not found");
+            }
+
             product.Quantity -= quantity;
 
             if (product.Quantity < 0)
             {
-                throw new ArgumentOutOfRangeException("Quantity not enough !");  // FIXME bad choice; should be a custom exception :P
+                throw new QuantityException($"Not enough: {product.Quantity + quantity}");
             }
 
             MakeTransaction(context, username, product.Name, quantity);
