@@ -26,7 +26,7 @@ namespace MS_Toys.Controllers
         public ActionResult Purchase()
         {
             ViewData["username"] = GetCookie.Get(Request, "username");
-            return View();
+            return View(new Product());
         }
 
         [HttpPost]
@@ -52,7 +52,7 @@ namespace MS_Toys.Controllers
         public ActionResult Create()
         {
             ViewData["username"] = GetCookie.Get(Request, "username");
-            return View();
+            return View(new Product());
         }
 
         // POST: Products/Create

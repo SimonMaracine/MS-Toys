@@ -12,7 +12,7 @@ namespace MS_Toys.Controllers
         public ActionResult Create()
         {
             ViewData["username"] = GetCookie.Get(Request, "username");
-            return View();
+            return View(new User());
         }
 
         [HttpPost]
