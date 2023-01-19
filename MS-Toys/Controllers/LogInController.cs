@@ -15,15 +15,17 @@ namespace MS_Toys.Controllers
 
         private StoreDataContext db = new StoreDataContext();
 
+        // GET: LogIn/Create
         public ActionResult Create()
         {
             ViewData["username"] = GetCookie.Get(Request, "username");
             return View(new User());
         }
 
+
+        // POST: LogIn/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
         public ActionResult Create([Bind(Include = "Username,EncryptedPassword")] User user)
         {
             var getUser = Data.GetUser(db, user.Username);
