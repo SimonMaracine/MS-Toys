@@ -23,7 +23,6 @@ namespace MS_Toys.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
         public ActionResult Create([Bind(Include = "Username,EncryptedPassword")] User user)
         {
             var getUser = Data.GetUser(db, user.Username);
@@ -31,11 +30,13 @@ namespace MS_Toys.Controllers
             if (getUser == null) 
             {
                 Trace.WriteLine("User '" + user.Username + "' was not found");
+                ViewData["username"] = GetCookie.Get(Request, "username");
+
                 return View(user);
             }
 
             HttpCookie usernameCookie = new HttpCookie("username");
-            usernameCookie["Username"] = user.Username;
+            usernameCookie["username"] = user.Username;
             Response.Cookies.Add(usernameCookie);
 
             ViewData["username"] = user.Username;
