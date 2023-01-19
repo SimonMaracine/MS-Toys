@@ -19,14 +19,14 @@ namespace MS_Toys.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            ViewData["userName"] = GetCookie.Get(Request, "userName");
+            ViewData["username"] = GetCookie.Get(Request, "username");
             return View(db.Users.ToList());
         }
 
         // GET: Users/Details/5
         public ActionResult Details(string id)
         {
-            ViewData["userName"] = GetCookie.Get(Request, "userName");
+            ViewData["username"] = GetCookie.Get(Request, "username");
 
             if (id == null)
             {
@@ -43,7 +43,7 @@ namespace MS_Toys.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewData["userName"] = GetCookie.Get(Request, "userName");
+            ViewData["username"] = GetCookie.Get(Request, "username");
             return View();
         }
 
@@ -54,7 +54,7 @@ namespace MS_Toys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Username,FirstName,LastName,EncryptedPassword")] User user)
         {
-            ViewData["userName"] = GetCookie.Get(Request, "userName");
+            ViewData["username"] = GetCookie.Get(Request, "username");
 
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace MS_Toys.Controllers
         // GET: Users/Edit/5
         public ActionResult Edit(string id)
         {
-            ViewData["userName"] = GetCookie.Get(Request, "userName");
+            ViewData["username"] = GetCookie.Get(Request, "username");
 
             if (id == null)
             {
@@ -100,7 +100,7 @@ namespace MS_Toys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Username,FirstName,LastName,EncryptedPassword")] User user)
         {
-            ViewData["userName"] = GetCookie.Get(Request, "userName");
+            ViewData["username"] = GetCookie.Get(Request, "username");
 
             if (ModelState.IsValid)
             {
@@ -114,7 +114,7 @@ namespace MS_Toys.Controllers
         // GET: Users/Delete/5
         public ActionResult Delete(string id)
         {
-            ViewData["userName"] = GetCookie.Get(Request, "userName");
+            ViewData["username"] = GetCookie.Get(Request, "username");
 
             if (id == null)
             {
@@ -133,7 +133,7 @@ namespace MS_Toys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            ViewData["userName"] = GetCookie.Get(Request, "userName");
+            ViewData["username"] = GetCookie.Get(Request, "username");
 
             User user = db.Users.Find(id);
             db.Users.Remove(user);

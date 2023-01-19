@@ -1,9 +1,5 @@
 ﻿using MS_Toys.Models;
 using StoreAdministration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -15,7 +11,7 @@ namespace MS_Toys.Controllers
 
         public ActionResult Create()
         {
-            ViewData["userName"] = GetCookie.Get(Request, "userName");
+            ViewData["username"] = GetCookie.Get(Request, "username");
             return View();
         }
 
@@ -26,16 +22,16 @@ namespace MS_Toys.Controllers
         {
             var getUser = Data.GetUser(db, user.Username);
 
-            if(getUser == null) 
+            if (getUser == null) 
             {
                 return View(user);
             }
 
-            HttpCookie userNameCookie = new HttpCookie("userName");
-            userNameCookie["Username"] = user.Username;
-            Response.Cookies.Add(userNameCookie);
+            HttpCookie usernameCookie = new HttpCookie("username");
+            usernameCookie["Username"] = user.Username;
+            Response.Cookies.Add(usernameCookie);
 
-            ViewData["userName"] = user.Username;
+            ViewData["username"] = user.Username;
 
             return View(user);
         } 
