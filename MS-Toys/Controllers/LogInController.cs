@@ -38,7 +38,7 @@ namespace MS_Toys.Controllers
                 return View(user);
             }
 
-            GetCookie.UsernameCookie(Response, user);
+            Cookie.UsernameCookie(Response, user);
 
             ViewData["username"] = user.Username;
             Trace.WriteLine("User '" + user.Username + "' has signed up");
