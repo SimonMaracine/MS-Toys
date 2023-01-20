@@ -23,9 +23,9 @@ namespace MS_Toys.Controllers
         //Cookie receives the logged in username and is stored until browser exit
         public static void UsernameCookie(HttpResponseBase response, User user)
         {
-            HttpCookie usernameCookie = new HttpCookie("username");
-            usernameCookie["username"] = user.Username;
-            response.Cookies.Add(usernameCookie);
+            HttpCookie cookie = new HttpCookie("username");
+            cookie["username"] = user.Username;
+            response.Cookies.Add(cookie);
         }
 
         /*public static void Clear(HttpResponseBase response, HttpRequestBase request, string cookieName)

@@ -41,22 +41,25 @@ namespace MS_Toys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Username,FirstName,LastName,EncryptedPassword")] User user)
         {
-            ViewData["username"] = Cookie.Get(Request, "username");
+            // ViewData["username"] = Cookie.Get(Request, "username");
 
             if (ModelState.IsValid)
             {
                 var users = Data.GetAllUsernames(db);
 
-                foreach(var user_ in users)
+                foreach (var user_ in users)
                 {
-                    if(user_.Username == user.Username)
+                    if (user_.Username == user.Username)
                     {
                         return View(user);
                     }
                 }
 
                 Data.SignUserUp(db, user.Username, user.EncryptedPassword, user.FirstName, user.LastName);
+
                 Trace.WriteLine("User '" + user.Username + "' has signed up");
+
+                ViewData["username"] = user.Username;
 
                 return RedirectToAction("Index");
             }

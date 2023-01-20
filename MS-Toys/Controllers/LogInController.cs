@@ -22,7 +22,6 @@ namespace MS_Toys.Controllers
             return View(new User());
         }
 
-
         // POST: LogIn/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -30,7 +29,7 @@ namespace MS_Toys.Controllers
         {
             var getUser = Data.GetUser(db, user.Username);
 
-            if (getUser == null) 
+            if (getUser == null)
             {
                 Trace.WriteLine("User '" + user.Username + "' was not found");
                 ViewData["username"] = Cookie.Get(Request, "username");
@@ -41,7 +40,7 @@ namespace MS_Toys.Controllers
             Cookie.UsernameCookie(Response, user);
 
             ViewData["username"] = user.Username;
-            Trace.WriteLine("User '" + user.Username + "' has signed up");
+            Trace.WriteLine("User '" + user.Username + "' has logged in");
 
             return Redirect("/Home/Index");
         }
